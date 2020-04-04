@@ -16,6 +16,8 @@ $escreve = fwrite($fp, $dados_json);
 // Fecha o arquivo
 fclose($fp);
 
+
+
 // ------------ LOGICA PARA DECIFRAR ------------
 
 // Atribuindo os valor do array para variaveis
@@ -54,12 +56,36 @@ $numeroCasas = $conteudoAPI->numero_casas;
     $conteudoAPI->resumo_criptografico = $criptografado;
     $json_dados = json_encode($conteudoAPI);
     file_put_contents('answer.json', $json_dados);
-
     
 
+    // --------------------------------------------------
     
+    // ----- CONDIGO PARA POST DO JSON
 
-    
+    // $urlSolucao = "https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=3c326734d699d6a1fe5fac1066802a0749692673";
+
+    // $content = json_encode($conteudoAPI);
+
+    // $curl = curl_init($urlSolucao);
+    // curl_setopt($curl, CURLOPT_HEADER, false);
+    // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    // curl_setopt($curl, CURLOPT_HTTPHEADER,
+    //         array("Content-type: multipart/form-data"));
+    // curl_setopt($curl, CURLOPT_POST, true);
+    // curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+
+    // $json_response = curl_exec($curl);
+
+    // $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    // if ( $status != 201 ) {
+    //     die("Error: call to URL $urlSolucao failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+    // }
+
+
+    // curl_close($curl);
+
+    // $response = json_decode($json_response, true);
 
 ?>
 
@@ -76,14 +102,13 @@ $numeroCasas = $conteudoAPI->numero_casas;
 <body>
 
 <div class="container">
-    <row>
-        <form>
-          <div class="form-group">
-          <label for="decifrado"></label>
-          <input name="decfirado" class="form-control " type="text" placeholder="">
-          <input class="form-control" type="text" placeholder="Default input">
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+    <class="row">
+        <form enctype="multipart/form-data" method="post" action='https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=3c326734d699d6a1fe5fac1066802a0749692673'>
+            Selecione o JSON: <br><br>
+            <input type="file" name="answer"> <br><br>			
+            <button onClick="return confirm('Deseja enviar o arquivo?');" class="btn btn-primary" type="submit" name="Submit" value="Enviar" >
+                enviar
+            </button>
         </form>
     </row>
 </div>
